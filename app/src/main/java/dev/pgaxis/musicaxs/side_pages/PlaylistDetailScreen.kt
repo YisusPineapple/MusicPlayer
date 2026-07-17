@@ -121,7 +121,7 @@ fun PlaylistDetailScreen(
                     }
                     Spacer(Modifier.weight(1f))
                     when (playlistId) {
-                        0L, 1L, 2L, 3L -> { }
+                        0L, 1L, 2L, 3L, 4L -> { }
                         else -> {
                             IconButton(onClick = {
                                 favPlaylists.toggle(playlistId)
@@ -145,7 +145,7 @@ fun PlaylistDetailScreen(
                     }
                     // Play all button
                     IconButton(onClick = {
-                        if (state.songs.isNotEmpty()) MusicService.replaceQueue(context, state.songs, playlistId)
+                        if (state.songs.isNotEmpty()) MusicService.playNormal(context, state.songs, playlistId)
                     }, shape = RoundedCornerShape(0.dp)) {
                         Icon(painterResource(R.drawable.play), "Play all",
                             tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(28.dp))
@@ -215,7 +215,7 @@ fun PlaylistDetailScreen(
                                                 song = keyed.song,
                                                 onSeeDetails = onSeeDetail,
                                                 onAddTo = { selectedSong = keyed.song },
-                                                showRemoveFrom = playlistId !in longArrayOf(0L, 1L, 2L, 3L),
+                                                showRemoveFrom = playlistId !in longArrayOf(0L, 1L, 2L, 3L, 4L),
                                                 onRemoveFrom = {
                                                     vm.removeSong(playlistId, index)
                                                     PlaylistToQueue(context).removeIfCurrent(playlistId, keyed.song, index)
